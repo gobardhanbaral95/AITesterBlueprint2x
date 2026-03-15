@@ -1,11 +1,11 @@
 # Test Plan for VWO – Digital Experience Optimization Platform
 
-**Created by:** QA Team / Pramod
+**Created by:** [Your Name]
 
 ---
 
 # 1. Objective
-This document outlines the test plan for the **VWO – Digital Experience Optimization Platform** application. The objective is to ensure that all features and functionalities work as expected for the target audience, specifically **CRO Specialists, Product Managers, UX Designers, Digital Marketers, and Data Analysts**, ensuring a statistically reliable, highly available (99.9% uptime SLA), and performant testing and personalization platform.
+This document outlines the test plan for the **VWO – Digital Experience Optimization Platform** application. The objective is to ensure that all features and functionalities work as expected for the target audience, **CRO Specialists, Product Managers, UX Designers, Digital Marketers, and Data Analysts**.
 
 ---
 
@@ -14,67 +14,69 @@ This document outlines the test plan for the **VWO – Digital Experience Optimi
 The scope of this test plan includes:
 
 **Features to be tested:**  
-- **Experimentation Engine:** A/B Testing, Split URL Testing, Multivariate Testing, SmartStats computational accuracy, and test scheduling.
-- **Behavioral Insights Tracking:** Heatmaps (click, scroll, focus), Session Recordings, Funnels, and on-page Surveys.
-- **Personalization Engine:** Real-time targeting, dynamic content delivery, and audience segmentation rules.
-- **Program Management workflows:** Kanban-style backlog and team collaboration UI.
-- **SDK Event Ingestion:** Web SDK performance and accuracy in collecting behavioral data and executing variations.
-- **Integrations:** Verification of APIs connecting out to Google Analytics, Mixpanel, Salesforce, Snowflake, and CMS platforms (WordPress, Shopify).
+- Experimentation (A/B Testing, Split URL Testing, Multivariate Testing, SmartStats analysis)
+- Behavioral Insights (Heatmaps, Session recordings, Funnel analytics, On-page surveys)
+- Personalization (Real-time targeting, Audience segmentation, Dynamic content)
+- Program Management (Experiment backlog, Kanban-style workflow)
+- Event Collection API and Web SDK
+- Integrations (Google Analytics, Mixpanel, Salesforce, Snowflake, Segment, WordPress, Shopify, Drupal)
 
 **Types of testing:**
-- Manual Testing (Exploratory logic and visual checks)
-- Automated Testing (Web functional flows and REST API validations)
-- Performance Testing (Event pipeline ingestion, backend response within 2s, and SDK execution in milliseconds)
-- Security and Compliance Testing (SSO, 2FA, RBAC, GDPR/CCPA anonymization)
+- Manual Testing
+- Automated Testing
+- Performance Testing (Dashboard < 2s, Delivery in milliseconds)
 - Accessibility Testing
+- Security and Compliance Testing (GDPR, CCPA, 2FA, SSO, RBAC)
 
 **Environments:**  
-Testing across Staging and Production environments. Cross-browser testing on modern versions of Chrome, Firefox, Safari, and Edge.
+Testing across Development, Staging, and Production (https://app.vwo.com/) environments, testing across different browsers, operating systems, and device types.
 
 **Evaluation Criteria:**
-- High baseline accuracy for SmartStats computations.
-- Number of Critical/High defects found.
-- Zero latency degradation to client websites (mobile/web) from the VWO SDK.
-- Time taken to complete End-to-End integration test cycles.
+- Number of defects found
+- Time taken to complete testing
+- User satisfaction ratings
+- 99.9% uptime SLA adherence
+- Performance metrics (2s dashboard, ms delivery)
 
 **Team Roles and Responsibilities:**
-- Test Lead: Test Strategy and Sign-off.
-- Testers / SDETs: Automated script generation, manual testing execution, reporting.
-- Developers: Build, bug resolution, and unit test coverage.
-- Stakeholders: Requirements verification and final User Acceptance.
+- Test Lead
+- Testers
+- Developers
+- Stakeholders (Executive leadership, Business stakeholders, Engineering teams)
 
 ---
 
 # 3. Inclusions
 
 ## Introduction
-This test plan provides a comprehensive overview of the testing approach for the VWO Platform, focusing on ensuring reliable data pipelines, robust visual experiment editing, and highly responsive user dashboards to allow teams to run CRO campaigns securely.
+Overview of the test plan for VWO platform including its **purpose, scope, and goals**.
 
 ## Test Objectives
-- Identify functional and visual defects in the VWO Web Application (Editor, Dashboards).
-- Protect client data and ensure continuous system compliance with GDPR and CCPA.
-- Ensure the system processes millions of events concurrently without hitting timeout thresholds.
-- Validate that the Web SDK loads efficiently without blocking user interactions on host properties.
+- Identify defects in the application.
+- Improve user experience.
+- Ensure the system performs efficiently under expected high visitor traffic and large-scale event ingestion.
+- Validate that all core functionalities work as expected.
 
 ---
 
 # 4. Exclusions
+List any features or components that are **out of scope** for this test plan.
 
-The following features and components are **out of scope** for this test plan:
-- Testing the internal systems or performance of third-party platforms (e.g., Salesforce, Google Analytics) beyond our integration webhook/API contracts.
-- Native Mobile SDKs (iOS/Android), which are planned for future expansion.
-- AI-driven experiment suggestions and predictive analytics (future enhancements).
+Examples:
+- Mobile SDK (iOS/Android) testing explicitly marked as future expansion.
+- AI-driven experiment suggestions (future enhancement).
+- Predictive analytics for conversions (future enhancement).
 
 ---
 
 # 5. Test Environments
 
 **Operating Systems:**
-- Windows 10 / 11
-- macOS (Latest versions)
-- Linux (for CI environments)
+- Windows 10
+- macOS
+- Linux
 
-**Browsers (WYSIWYG Editor & Dashboard):**
+**Browsers:**
 - Google Chrome
 - Mozilla Firefox
 - Microsoft Edge
@@ -83,21 +85,30 @@ The following features and components are **out of scope** for this test plan:
 **Devices:**
 - Desktop computers
 - Laptops
-- Tablets / Smartphones (for Responsive Dashboard testing and Web SDK mobile simulation)
+- Tablets
+- Smartphones
 
 **Network Connectivity:**
-- Wi-Fi and Cellular networks (to test SDK loading performance under variable latency).
+- Wi-Fi
+- Cellular networks
+- Wired connections
+
+**Hardware/Software Requirements:**
+- Minimum processor requirements
+- Memory requirements
+- Storage capacity requirements
 
 **Security Protocols:**
-- TLS encryption for in-transit data APIs.
-- JWT/SSO based authentication.
-- Strict Role-Based Access Control (RBAC) validation.
+- Password authentication
+- Tokens (SSO)
+- Certificates (TLS Encryption)
+- Two-factor authentication (2FA)
 
 **Access Permissions:**
 Roles assigned to team members such as:
-- Campaign Creators / Marketers
-- Analysts (Read-only)
-- Developers (Integrations/SDK)
+- Testers
+- Developers
+- Stakeholders
 - Administrators
 
 ---
@@ -105,34 +116,38 @@ Roles assigned to team members such as:
 # 6. Defect Reporting Procedure
 
 **Criteria for Identifying Defects:**
-- Discrepancies in Bayesian calculation (SmartStats) reporting.
-- Failures of Web SDK to load or render an A/B variation.
-- Dashboard load times exceeding 2 seconds.
-- Functional deviations from PRD requirements.
-- Any security or GDPR compliance risk (e.g., exposed PII).
+- Deviation from requirements
+- User experience issues
+- Technical errors or crashes
+- Performance SLA misses (e.g. Dashboard takes >2s)
 
 **Steps for Reporting Defects:**
-1. Use the designated defect template (e.g., Jira Bug Template).
-2. Provide detail reproduction steps, expected vs actual behavior.
-3. Attach session recordings (via VWO's own tool), browser logs, and API payload traces.
+1. Use the designated defect template.
+2. Provide detailed reproduction steps.
+3. Attach screenshots or logs where necessary.
 
 **Triage and Prioritization:**
 - Assign severity levels (Critical, High, Medium, Low).
-- Assign priority levels for upcoming Sprint resolution.
-- Defect prioritization meetings with Product Managers.
+- Assign priority levels.
+- Allocate defects to the appropriate team members.
 
 **Tracking Tools:**
-- JIRA – Bug Tracking Tool
+- Defect tracking software or project management tools (e.g. JIRA).
 
 **Roles and Responsibilities:**
-- Testers log defects with clear context.
-- Developers fix defects and route back to QA.
-- Test Lead reviews priority metrics daily.
+- Testers log defects.
+- Developers fix defects.
+- Test Lead reviews and prioritizes.
 
 **Communication Channels:**
-- Dedicated Slack Channel (#vwo-qa).
-- Daily QA stand-ups.
-- Automated CI/CD execution reports via Webhooks.
+- Daily stand-ups
+- Status emails
+- Project dashboards
+
+**Metrics:**
+- Number of defects found
+- Time taken to resolve defects
+- Percentage of defects fixed
 
 ---
 
@@ -141,84 +156,85 @@ Roles assigned to team members such as:
 ## Step 1: Test Scenarios and Test Cases Creation
 
 **Techniques Used:**
-- Equivalence Class Partitioning (e.g., Traffic allocation percentages 0-100%).
-- Boundary Value Analysis (e.g., High-volume event API endpoints).
-- Decision Table Testing (e.g., User Segmentation Logic based on Geos, Device, and Behavior).
-- Use Case Testing (e.g., E2E from creating an A/B test to viewing result reports).
+- Equivalence Class Partitioning
+- Boundary Value Analysis
+- Decision Table Testing
+- State Transition Testing
+- Use Case Testing
 
 **Additional Methods:**
-- Data Pipeline Testing (Kafka to Database verification).
-- Exploratory Testing on WYSIWYG Visual Editor.
+- Error Guessing
+- Exploratory Testing
 
 ---
 
 ## Step 2: Testing Procedure
 
 **Smoke Testing:**  
-Verify web application login, basic SDK firing on standard test pages, and dashboard loading.
+To verify that critical functionalities work before detailed testing begins.
 
 **In-Depth Testing:**  
-Execution of comprehensive API tests and UI component tests across Heatmaps, Custom Goals, and Variations.
+Execution of detailed test cases after the build passes Smoke Testing.
 
 **Multiple Environments:**  
-Staging vs Production cross-checks and multi-browser rendering matrices.
+Testing simultaneously across supported browsers, OS, and devices.
 
 **Defect Reporting:**  
-Logging defects in Jira and tracking resolution metrics weekly.
+Logging defects in the tracking tool and sharing daily status updates.
 
 **Types of Testing:**
 - Smoke Testing
 - Sanity Testing
-- Regression Testing (Automated via CI/CD)
-- Usability Testing (Visual Editor)
-- Performance / Load Testing (Analytics Processing Engine)
+- Regression Testing
+- Retesting
+- Usability Testing
 - Functionality Testing
+- UI Testing
 
 ---
 
 ## Step 3: Best Practices
 
 **Context Driven Testing:**  
-Testing scenarios modeled closely on actual CRO/Analyst daily workflows.
+Testing based on the application context and user scenarios.
 
 **Shift Left Testing:**  
-Unit tests on the Bayesian Statistics Engine and early API contract testing.
+Starting testing activities early in the development lifecycle.
 
 **Exploratory Testing:**  
-Free-form testing within the graphical Experiment Visual Editor to catch UI glitches.
+Testing beyond predefined test cases to uncover hidden defects.
 
 **End-to-End Flow Testing:**  
-Creating an experiment -> Injecting SDK into a site -> Simulating Visitor traffic -> Processing Analytics -> Validating Dashboard SmartStats report.
+Simulating real user journeys through the application.
 
 ---
 
 # 8. Test Schedule
 
 **Tasks and Estimated Time Duration:**
-- Test Plan Creation: Day 1
-- Test Scenario / Test Case Creation: Days 2 - 4
-- Automation Scripting: Days 4 - 8
-- Test Case Execution (Staging): Days 9 - 13
-- Test Summary Report Submission: Day 14
+- Test Plan Creation
+- Test Scenario Creation
+- Test Case Creation
+- Test Case Execution
+- Test Summary Report Submission
 
 **Timeline:**  
-*Sprint aligned (2-week increments).*
+[To be defined appropriately per planning phase - Information missing in PRD]
 
 ---
 
 # 9. Test Deliverables
 
 **Deliverables include:**
-- Test Plan Document (This document)
-- Test Scenarios Matrix (Excel/Jira Xray)
-- UI and API Automated Test Suite Codebase (Playwright/REST-assured)
-- Performance Load Scripts (JMeter/K6 for SDK API ingestion)
+- Test Plan Document
+- Test Scenarios
+- Test Cases
 - Defect Reports
-- Test Execution Weekly Status Reports
-- Final Sign-off Test Summary Reports
+- Test Execution Reports
+- Test Summary Reports
 
 **Entry and Exit Criteria:**  
-Strictly enforced gateway reviews before moving to Production.
+Defined for each phase of the Software Testing Life Cycle (STLC).
 
 ---
 
@@ -227,71 +243,80 @@ Strictly enforced gateway reviews before moving to Production.
 ## Requirement Analysis
 
 **Entry Criteria:**
-- Updated VWO PRD document, Wireframes, and System Architecture diagrams approved.
+- Receiving Requirements Documents (VWO PRD).
 
 **Exit Criteria:**
-- Ambiguities in segmentation rules or stat engine configurations clarified.
+- Requirements understood and clarified.
 
 ---
 
 ## Test Execution
 
 **Entry Criteria:**
-- Approved Test Scenarios and Automated Scripts ready.
-- VWO Web Application and supporting Microservices deployed accurately to Staging.
-- Test Data (mock visitor events) generated.
+- Approved Test Scenarios and Test Cases.
+- Application build ready for testing (in Staging environment).
 
 **Exit Criteria:**
-- 100% test execution of Critical/High functional pathways.
-- All Critical/High priority defect reports mapped and resolved.
+- Test Case Reports completed.
+- Defect Reports documented.
 
 ---
 
 ## Test Closure
 
 **Entry Criteria:**
-- Regression test suite passes in CI/CD pipeline.
-- Scalability and performance SLAs (2s rendering, ms SDK speeds) confirmed.
+- Test Case Reports available.
+- Defect Reports available.
 
 **Exit Criteria:**
-- Test Summary Reports prepared and shared with stakeholders.
-- Sign-off provided by the Test Lead and Product Managers.
+- Test Summary Reports prepared and shared.
 
 ---
 
 # 11. Tools
 
 **List of Tools:**
-- JIRA – Bug & Agile Tracking
-- Playwright / Selenium – UI Test Automation
-- K6 / Apache JMeter – Load and Event Ingestion Performance Testing
-- Postman – REST API Exploration and Validation
-- GitHub Actions / Jenkins – CI/CD Automated Executions
-- Mind Map Tool / Microsoft Excel – Scenario Design
+- JIRA – Bug Tracking Tool
+- Mind Map Tool
+- Snipping Tool / Screenshot Tool
+- Microsoft Word
+- Microsoft Excel
+- CI/CD Tools (GitHub Actions, Jenkins, or GitLab CI)
 
 ---
 
 # 12. Risks and Mitigations
 
 **Possible Risks:**
-- **Risk:** High volume streaming data (Kafka/Clickhouse) testing environment latency.  
-  **Mitigation:** Create dedicated, isolated performance environments for load simulation testing separate from functional staging.
-- **Risk:** Third-party integration APIs (Salesforce/Mixpanel) hitting rate limits during testing.  
-  **Mitigation:** Utilize API Mocking strategies for deep integration test cycles.
-- **Risk:** Late discovery of algorithmic issues in Bayesian SmartStats Engine.  
-  **Mitigation:** Strong Unit and mathematical testing by SDETs early in the cycle (Shift Left).
+- Non-availability of a key resource.
+- Build URL not working.
+- Limited time available for testing.
+- High-scale concurrent event ingestion constraints impacting test environments.
+
+**Mitigations:**
+- Backup resource planning.
+- Working on parallel tasks when blocked.
+- Dynamically allocating additional resources if required.
 
 ---
 
 # 13. Approvals
 
-**Documents for Client / Stakeholder Approval:**
-- VWO Test Plan Document
-- High-level Test Scenarios
-- Final Test Execution Summary
+**Documents for Client Approval:**
+- Test Plan
+- Test Scenarios
+- Test Cases
+- Test Reports
 
 ---
 
 **Approved By:** ___________________________
 
 **Date:** ___________________________
+
+---
+### Strict Anti-Hallucination Validation Log:
+- **Verified Facts:** Extracted integration names (Salesforce, Shopify, etc.), 5 exact target user-roles, SLA timings (2s and ms), specific UI functionalities (Heatmaps, SmartStats compute), out-of-scope items (Mobile SDK, AI), and CI tools from `vwo_prd.md`. Test process facts were strictly sourced from `prompt_templates/test_plan.md`.
+- **Missing / Unknown Information:** Exact calendar execution timeline. Left as "[To be defined]". Exact test resource names. Left as "[Your Name]".
+- **Generated Output:** The `TestPlan.md` file layout above.
+- **Self-Validation Check:** Checked against the constraint "DO NOT invent features, APIs, error codes, UI elements, or behavior." All external tool names (Selenium, JMeter, K6) not present in PRD or Template have been removed. Estimates not present in inputs have been removed. Process is compliant.
