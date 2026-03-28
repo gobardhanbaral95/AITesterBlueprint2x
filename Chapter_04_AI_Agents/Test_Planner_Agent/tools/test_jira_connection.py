@@ -11,7 +11,7 @@ def test_jira_connection(url, email, api_token):
     if not url.startswith("http"):
         url = "https://" + url
     
-    endpoint = f"{url.rstrip('/')}/rest/api/3/myself"
+    endpoint = f"{url.rstrip('/')}/rest/api/2/myself"
     
     try:
         response = requests.get(

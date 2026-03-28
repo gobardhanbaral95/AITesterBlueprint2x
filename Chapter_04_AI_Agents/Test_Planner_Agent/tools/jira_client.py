@@ -12,7 +12,7 @@ class JiraClient:
         """
         Fetches the title, description, and raw JSON of a Jira ticket.
         """
-        endpoint = f"{self.url}/rest/api/3/issue/{ticket_id}"
+        endpoint = f"{self.url}/rest/api/2/issue/{ticket_id}"
         
         try:
             response = requests.get(

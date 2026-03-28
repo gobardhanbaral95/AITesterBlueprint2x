@@ -338,6 +338,17 @@ textarea {
 }
 
 /* Output */
+.preview-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--sidebar-active);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--primary-color);
+  border-radius: 6px;
+}
+.preview-box h4 {
+  margin-bottom: 0.5rem;
+}
 .output-container {
   background-color: var(--bg-color);
   border: 1px solid var(--border-color);

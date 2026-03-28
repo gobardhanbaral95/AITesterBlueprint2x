@@ -10,6 +10,7 @@ function App() {
   const [jira, setJira] = useState({ url: 'https://yourcompany.atlassian.net', email: '', token: '' })
   const [ticketId, setTicketId] = useState('')
   const [context, setContext] = useState('')
+  const [ticketData, setTicketData] = useState(null)
   
   // Processing states
   const [status, setStatus] = useState({ type: '', text: '' })
@@ -48,6 +49,31 @@ function App() {
       if(res.ok) {
         setStatus({ type: 'success', text: data.message })
         setTimeout(() => { setStatus({ type: '', text: ''}); setStep(3); }, 1000)
+      } else {
+        setStatus({ type: 'error', text: data.detail })
+      }
+    } catch(e) {
+      setStatus({ type: 'error', text: 'Backend unavailable.' })
+    }
+  }
+
+  const fetchJiraTicket = async () => {
+    if (!ticketId || !jira.email || !jira.token) {
+      setStatus({ type: 'error', text: 'Please fill Jira details and Ticket ID' })
+      return;
+    }
+    setStatus({ type: 'loading', text: 'Fetching Ticket details...' })
+    setTicketData(null)
+    try {
+      const res = await fetch('http://localhost:8000/api/fetch-jira', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jira, ticket_id: ticketId })
+      });
+      const data = await res.json();
+      if(res.ok) {
+        setStatus({ type: 'success', text: 'Ticket fetched successfully!' })
+        setTicketData(data)
       } else {
         setStatus({ type: 'error', text: data.detail })
       }
@@ -201,6 +227,17 @@ function App() {
                     <textarea value={context} onChange={e => setContext(e.target.value)} placeholder="E.g. Focus specifically on security boundary testing..."></textarea>
                   </div>
                   <div className="btn-group">
+                    <button className="btn outline" onClick={fetchJiraTicket}>🔍 Fetch Preview</button>
+                  </div>
+                  
+                  {ticketData && (
+                    <div className="preview-box">
+                       <h4>{ticketData.ticket_id}: {ticketData.title}</h4>
+                       <p>{ticketData.description?.substring(0, 150)}...</p>
+                    </div>
+                  )}
+
+                  <div className="btn-group" style={{marginTop: '2rem'}}>
                     <button className="btn outline" onClick={() => setStep(2)}>Back</button>
                     <button className="btn primary highlight" onClick={generatePlan}>⚡ Generate Test Plan</button>
                   </div>

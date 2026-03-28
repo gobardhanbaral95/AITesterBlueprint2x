@@ -32,6 +32,10 @@ class LLMConnectionReq(BaseModel):
     key: str
     model: str
 
+class FetchReq(BaseModel):
+    jira: JiraConnectionReq
+    ticket_id: str
+
 class GenerateReq(BaseModel):
     jira: JiraConnectionReq
     llm: LLMConnectionReq
@@ -51,6 +55,14 @@ def api_test_llm(req: LLMConnectionReq):
     if success:
         return {"status": "success", "message": f"{req.provider} connected successfully"}
     raise HTTPException(status_code=400, detail=f"Failed to connect to {req.provider}")
+
+@app.post("/api/fetch-jira")
+def api_fetch_jira(req: FetchReq):
+    client = JiraClient(req.jira.url, req.jira.email, req.jira.token)
+    ticket_data = client.fetch_ticket(req.ticket_id)
+    if ticket_data.get("error"):
+        raise HTTPException(status_code=400, detail=ticket_data.get("message"))
+    return ticket_data
 
 @app.post("/api/generate")
 def api_generate(req: GenerateReq):
