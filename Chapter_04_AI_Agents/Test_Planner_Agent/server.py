@@ -6,6 +6,7 @@ import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'tools'))
 from tools.jira_client import JiraClient
+from tools.confluence_client import ConfluenceClient
 from tools.llm_client import LLMClient
 from tools.document_generator import DocumentGenerator
 from tools.test_jira_connection import test_jira_connection
@@ -41,6 +42,12 @@ class GenerateReq(BaseModel):
     llm: LLMConnectionReq
     ticket_id: str
     context: str
+
+class PublishReq(BaseModel):
+    jira: JiraConnectionReq
+    space_key: str
+    title: str
+    markdown_content: str
 
 @app.post("/api/test-jira")
 def api_test_jira(req: JiraConnectionReq):
@@ -95,6 +102,14 @@ def api_generate(req: GenerateReq):
         "markdown": markdown_content,
         "file_path": save_res.get("file_path")
     }
+
+@app.post("/api/publish-confluence")
+def api_publish_confluence(req: PublishReq):
+    client = ConfluenceClient(req.jira.url, req.jira.email, req.jira.token)
+    pub_res = client.publish_page(req.space_key, req.title, req.markdown_content)
+    if pub_res.get("error"):
+        raise HTTPException(status_code=400, detail=pub_res.get("message"))
+    return pub_res
 
 if __name__ == "__main__":
     import uvicorn

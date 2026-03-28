@@ -12,6 +12,10 @@ function App() {
   const [context, setContext] = useState('')
   const [ticketData, setTicketData] = useState(null)
   
+  // Confluence states
+  const [spaceKey, setSpaceKey] = useState('QA')
+  const [pageTitle, setPageTitle] = useState('')
+  
   // Processing states
   const [status, setStatus] = useState({ type: '', text: '' })
   const [generatedMarkdown, setGeneratedMarkdown] = useState('')
@@ -99,6 +103,7 @@ function App() {
       if(res.ok) {
         setStatus({ type: 'success', text: 'Plan generated successfully! ' + data.file_path })
         setGeneratedMarkdown(data.markdown)
+        setPageTitle(`${ticketId} - Test Plan`)
         setStep(4)
       }
       else {
@@ -106,6 +111,34 @@ function App() {
       }
     } catch(e) {
       setStatus({ type: 'error', text: 'Backend unavailable or timed out.' })
+    }
+  }
+
+  const publishConfluence = async () => {
+    if (!spaceKey || !pageTitle) {
+      setStatus({ type: 'error', text: 'Please provide Confluence Space Key and Page Title.' })
+      return;
+    }
+    setStatus({ type: 'loading', text: 'Publishing to Confluence...' })
+    try {
+      const res = await fetch('http://localhost:8000/api/publish-confluence', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jira,
+          space_key: spaceKey,
+          title: pageTitle,
+          markdown_content: generatedMarkdown
+        })
+      });
+      const data = await res.json();
+      if(res.ok) {
+        setStatus({ type: 'success', text: `Published! Confluence URL: ${data.url}` })
+      } else {
+        setStatus({ type: 'error', text: data.detail })
+      }
+    } catch(e) {
+      setStatus({ type: 'error', text: 'Backend unavailable.' })
     }
   }
 
@@ -256,6 +289,22 @@ function App() {
                   <div className="output-container">
                     <pre className="markdown-output">{generatedMarkdown}</pre>
                   </div>
+                  
+                  <div className="publish-box" style={{marginTop: '1.5rem', padding: '1.5rem', border: '1px solid var(--border-color)', borderRadius: '8px', background: 'var(--bg-color)'}}>
+                    <h3 style={{marginBottom: '1rem', fontSize: '1.1rem', color: 'var(--text-main)'}}>☁️ Publish to Confluence</h3>
+                    <div className="form-row">
+                      <div className="form-group flex-1">
+                        <label>Space Key</label>
+                        <input type="text" value={spaceKey} onChange={e => setSpaceKey(e.target.value)} placeholder="e.g. QA" />
+                      </div>
+                      <div className="form-group flex-2">
+                        <label>Page Title</label>
+                        <input type="text" value={pageTitle} onChange={e => setPageTitle(e.target.value)} />
+                      </div>
+                    </div>
+                    <button className="btn primary highlight" onClick={publishConfluence}>🚀 Publish Document</button>
+                  </div>
+
                   <div className="btn-group" style={{marginTop: '1.5rem'}}>
                     <button className="btn outline" onClick={() => setStep(3)}>Start Over</button>
                     <button className="btn primary" onClick={() => {
