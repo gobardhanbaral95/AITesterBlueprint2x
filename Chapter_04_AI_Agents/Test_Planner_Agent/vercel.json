@@ -1,5 +1,5 @@
 {
-  "name": "blast-test-planner",
+  "name": "blast-test-planner-v2",
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
   "rewrites": [
